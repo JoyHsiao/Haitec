@@ -1,0 +1,200 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CLASSES	demo.py	/^CLASSES = ['background',$/;"	v
+CLASSES	demo_haitech.py	/^CLASSES = ['background',$/;"	v
+CLASSES	demo_image.py	/^CLASSES = ('background',$/;"	v
+FLAGS	gen.py	/^FLAGS = None$/;"	v
+FLT_EPSILON	fhog.py	/^FLT_EPSILON = 1e-07$/;"	v
+GPU_ID	demo.py	/^GPU_ID = 0 # Switch between 0 and 1 depending on the GPU you want to use.$/;"	v
+GPU_ID	demo_haitech.py	/^GPU_ID = 0 # Switch between 0 and 1 depending on the GPU you want to use.$/;"	v
+GPU_ID	demo_image.py	/^GPU_ID = 0 # Switch between 0 and 1 depending on the GPU you want to use.$/;"	v
+Generator	gen.py	/^class Generator():$/;"	c
+IOU	demo_haitech.py	/^def IOU(boxA, boxB):$/;"	f
+KCFTracker	kcftracker.py	/^class KCFTracker:$/;"	c
+NUM_SECTOR	fhog.py	/^NUM_SECTOR = 9$/;"	v
+PCAFeatureMaps	fhog.py	/^def PCAFeatureMaps(mapp):$/;"	f
+Timer	demo.py	/^class Timer(object):$/;"	c
+Timer	demo_haitech.py	/^class Timer(object):$/;"	c
+Timer	demo_image.py	/^class Timer(object):$/;"	c
+__init__	demo.py	/^    def __init__(self):$/;"	m	class:Timer
+__init__	demo_haitech.py	/^    def __init__(self):$/;"	m	class:Timer
+__init__	demo_image.py	/^    def __init__(self):$/;"	m	class:Timer
+__init__	gen.py	/^    def __init__(self):$/;"	m	class:Generator
+__init__	kcftracker.py	/^	def __init__(self, hog=False, fixed_window=True, multiscale=False):$/;"	m	class:KCFTracker
+action	gen.py	/^      action='store_true',$/;"	v
+ave_pool	gen.py	/^    def ave_pool(self, name):$/;"	f
+back_view	demo_haitech.py	/^    back_view = frame[5 : int(ori_height \/ 2 - 5), int(ori_width \/ 2 + 12) : int(ori_width) - 5]$/;"	v
+back_view	video_to_frame.py	/^        back_view = cv2.resize(back_view, (img_width, img_height)) $/;"	v
+back_view	video_to_frame.py	/^    back_view = frame[5 : int(ori_height \/ 2 - 5), int(ori_width \/ 2 + 12) : int(ori_width) - 5]$/;"	v
+bbox	tracker.py	/^    bbox = (287, 23, 86, 320)$/;"	v
+bbox	tracker.py	/^    bbox = cv2.selectROI(frame, False)$/;"	v
+bn	gen.py	/^    def bn(self, name):$/;"	f
+caffe_model	demo.py	/^caffe_model='MobileNetSSD_8_classes_deploy.caffemodel'$/;"	v
+caffe_model	demo_haitech.py	/^caffe_model='MobileNetSSD_8_classes_deploy.caffemodel' #nighttime model$/;"	v
+caffe_model	demo_image.py	/^caffe_model='snapshot\/mobilenet_iter_30000.caffemodel'$/;"	v
+caffe_root	demo.py	/^caffe_root = '\/home\/joy_hsiao\/Haitec\/caffe\/'$/;"	v
+caffe_root	demo_haitech.py	/^caffe_root = '\/home\/ubuntu\/caffe\/'$/;"	v
+caffe_root	demo_image.py	/^caffe_root = '\/home\/ubuntu\/caffe\/'$/;"	v
+caffe_root	merge_bn.py	/^caffe_root = '\/home\/ubuntu\/caffe\/'$/;"	v
+cap	demo.py	/^cap = cv2.VideoCapture('\/home\/joy_hsiao\/Video\/left.mp4') $/;"	v
+cap	demo_haitech.py	/^cap = cv2.VideoCapture('\/home\/ubuntu\/Videos\/haitech\/test\/night\/test2.avi')$/;"	v
+cap	video_to_frame.py	/^cap = cv2.VideoCapture('\/home\/ubuntu\/Videos\/haitech\/test\/day\/test6.avi')$/;"	v
+check_object	demo_haitech.py	/^def check_object(xmin, ymin, xmax, ymax, frame):$/;"	f
+classifier_loss	gen.py	/^    def classifier_loss(self):$/;"	f
+complexDivision	kcftracker.py	/^def complexDivision(a, b):$/;"	f
+complexMultiplication	kcftracker.py	/^def complexMultiplication(a, b):$/;"	f
+concat_boxes	gen.py	/^    def concat_boxes(self, convs):$/;"	f
+conv	gen.py	/^    def conv(self, name, out, kernel, stride=1, group=1, bias=False, bottom=None):$/;"	f
+conv_bn_relu	gen.py	/^    def conv_bn_relu(self, name, num, kernel, stride):$/;"	f
+conv_bn_relu_with_factor	gen.py	/^    def conv_bn_relu_with_factor(self, name, num, kernel, stride):$/;"	f
+conv_dw_pw	gen.py	/^    def conv_dw_pw(self, name, inp, outp, stride):$/;"	f
+createGaussianPeak	kcftracker.py	/^	def createGaussianPeak(self, sizey, sizex):$/;"	m	class:KCFTracker
+createHanningMats	kcftracker.py	/^	def createHanningMats(self):$/;"	m	class:KCFTracker
+create_ssd_anchors	gen.py	/^def create_ssd_anchors(num_layers=6,$/;"	f
+create_tracker	demo_haitech.py	/^def create_tracker(xmin, ymin, w, h, frame):$/;"	f
+data_deploy	gen.py	/^    def data_deploy(self):$/;"	m	class:Generator
+data_test_ssd	gen.py	/^    def data_test_ssd(self):$/;"	f
+data_train_classifier	gen.py	/^    def data_train_classifier(self):$/;"	f
+data_train_ssd	gen.py	/^    def data_train_ssd(self):$/;"	f
+default	gen.py	/^      default='train',$/;"	v
+default	gen.py	/^      default=1.0,$/;"	v
+default	gen.py	/^      default=None,$/;"	v
+deploy_file	count_param.py	/^deploy_file = 'example_sep\/MobileNetSSD_deploy.prototxt'$/;"	v
+deploy_proto	merge_bn.py	/^deploy_proto = 'example\/8_class_haitech_prototxt\/MobileNetSSD_deploy.prototxt'  $/;"	v
+detect	demo.py	/^def detect(ori_img):$/;"	f
+detect	demo_haitech.py	/^def detect(ori_img, framePos):$/;"	f
+detect	demo_image.py	/^def detect(ori_img):$/;"	f
+detect	kcftracker.py	/^	def detect(self, z, x):$/;"	m	class:KCFTracker
+dst_img	demo.py	/^    dst_img = detect(frame)$/;"	v
+dst_img	demo_image.py	/^    dst_img = detect(img)$/;"	v
+fc	gen.py	/^    def fc(self, name, output):$/;"	f
+fftd	kcftracker.py	/^def fftd(img, backwards=False):	$/;"	f
+flatten	gen.py	/^    def flatten(self, name):$/;"	f
+fontScale	demo.py	/^fontScale = 1$/;"	v
+fontScale	demo_haitech.py	/^fontScale = 0.8$/;"	v
+fontScale	demo_image.py	/^fontScale = 1$/;"	v
+fps	tracker.py	/^        fps = cv2.getTickFrequency() \/ (cv2.getTickCount() - timer);$/;"	v
+frame	demo.py	/^    frame = cv2.resize(frame, (718, 479))$/;"	v
+framePos	demo.py	/^    framePos = cap.get(cv2.CAP_PROP_POS_FRAMES)$/;"	v
+framePos	demo_haitech.py	/^    framePos = cap.get(cv2.CAP_PROP_POS_FRAMES)$/;"	v
+framePos	video_to_frame.py	/^    framePos = cap.get(cv2.CAP_PROP_POS_FRAMES)$/;"	v
+func1	fhog.py	/^def func1(dx, dy, boundary_x, boundary_y, height, width, numChannels):$/;"	f
+func2	fhog.py	/^def func2(dx, dy, boundary_x, boundary_y, r, alfa, nearest, w, k, height, width, sizeX, sizeY, p, stringSize):$/;"	f
+func3	fhog.py	/^def func3(partOfNorm, mappmap, sizeX, sizeY, p, xp, pp):$/;"	f
+func4	fhog.py	/^def func4(mappmap, p, sizeX, sizeY, pp, yp, xp, nx, ny):$/;"	f
+gaussianCorrelation	kcftracker.py	/^	def gaussianCorrelation(self, x1, x2):$/;"	m	class:KCFTracker
+gen	gen.py	/^  gen = Generator()$/;"	v
+generate	gen.py	/^    def generate(self, stage, gen_ssd, size, class_num):$/;"	f
+getBorder	kcftracker.py	/^def getBorder(original, limited):$/;"	f
+getFeatureMaps	fhog.py	/^def getFeatureMaps(image, k, mapp):$/;"	f
+getFeatures	kcftracker.py	/^	def getFeatures(self, image, inithann, scale_adjust=1.0):$/;"	m	class:KCFTracker
+header	gen.py	/^    def header(self, name):$/;"	m	class:Generator
+help	gen.py	/^      help='Default generate ssd, if this is set, generate classifier prototxt.'$/;"	v
+help	gen.py	/^      help='Output class number, include the \\'backgroud\\' class. e.g. 21 for voc.'$/;"	v
+help	gen.py	/^      help='The label map for ssd training.'$/;"	v
+help	gen.py	/^      help='The size of mobilenet channels, support 1.0, 0.75, 0.5, 0.25.'$/;"	v
+help	gen.py	/^      help='The stage of prototxt, train|test|deploy.'$/;"	v
+help	gen.py	/^      help='The training database'$/;"	v
+imag	kcftracker.py	/^def imag(img):$/;"	f
+img	demo_image.py	/^    img = cv2.imread(img_path)$/;"	v
+img_height	demo_haitech.py	/^img_height = 300$/;"	v
+img_height	video_to_frame.py	/^img_height = 375$/;"	v
+img_name	demo_image.py	/^    img_name = img_path.split('\/')[-1]$/;"	v
+img_width	demo_haitech.py	/^img_width = 300$/;"	v
+img_width	video_to_frame.py	/^img_width = 500$/;"	v
+imgs_path	demo_image.py	/^imgs_path = sorted(glob.glob('\/home\/ubuntu\/caffe\/examples\/MobileNet-SSD\/images\/*.jpg'))$/;"	v
+init	kcftracker.py	/^	def init(self, roi, image):$/;"	m	class:KCFTracker
+k	tracker.py	/^        k = cv2.waitKey(1) & 0xff$/;"	v
+left_view	demo_haitech.py	/^    left_view = frame[int(ori_height \/ 2 + 5) : int(ori_height), int(ori_width \/ 2 + 12) : int(ori_width) - 5]$/;"	v
+left_view	video_to_frame.py	/^        left_view = cv2.resize(left_view, (img_width, img_height)) $/;"	v
+left_view	video_to_frame.py	/^    left_view = frame[int(ori_height \/ 2 + 5) : int(ori_height), 5 : int(ori_width \/ 2 - 12)]$/;"	v
+limit	kcftracker.py	/^def limit(rect, limit):$/;"	f
+mbox	gen.py	/^    def mbox(self, bottom, num):$/;"	f
+mbox_conf	gen.py	/^    def mbox_conf(self, bottom, num):$/;"	f
+mbox_loc	gen.py	/^    def mbox_loc(self, bottom, num):$/;"	f
+mbox_prior	gen.py	/^    def mbox_prior(self, name, min_size, max_size, aspect_ratio):$/;"	f
+merge_bn	merge_bn.py	/^def merge_bn(net, nob):$/;"	f
+net	demo.py	/^net = caffe.Net(net_file,caffe_model,caffe.TEST)  $/;"	v
+net	demo_haitech.py	/^net = caffe.Net(net_file,caffe_model,caffe.TEST)  $/;"	v
+net	demo_image.py	/^net = caffe.Net(net_file,caffe_model,caffe.TEST)  $/;"	v
+net	merge_bn.py	/^net = caffe.Net(train_proto, train_model, caffe.TRAIN)  $/;"	v
+net_deploy	merge_bn.py	/^net_deploy = caffe.Net(deploy_proto, caffe.TEST)  $/;"	v
+net_file	demo.py	/^net_file= 'example\/8_class_prototxt\/MobileNetSSD_deploy.prototxt'  $/;"	v
+net_file	demo_haitech.py	/^net_file= 'example\/8_class_haitech_prototxt\/MobileNetSSD_deploy.prototxt'  $/;"	v
+net_file	demo_image.py	/^net_file= 'example_sep\/MobileNetSSD_deploy.prototxt'  $/;"	v
+normalizeAndTruncate	fhog.py	/^def normalizeAndTruncate(mapp, alfa):$/;"	f
+ok	tracker.py	/^    ok = tracker.init(frame, bbox)$/;"	v
+ori_height	demo_haitech.py	/^ori_height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT) # float$/;"	v
+ori_height	video_to_frame.py	/^ori_height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT) # float$/;"	v
+ori_width	demo_haitech.py	/^ori_width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)   # float$/;"	v
+ori_width	video_to_frame.py	/^ori_width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)   # float$/;"	v
+out	demo_haitech.py	/^out = cv2.VideoWriter('\/home\/ubuntu\/Videos\/haitech\/output\/out.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 30, (img_width,img_height))$/;"	v
+p1	tracker.py	/^            p1 = (int(bbox[0]), int(bbox[1]))$/;"	v
+p2	tracker.py	/^            p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))$/;"	v
+parse_xml	demo_image.py	/^def parse_xml():$/;"	f
+parser	gen.py	/^  parser = argparse.ArgumentParser()$/;"	v
+permute	gen.py	/^    def permute(self, name):$/;"	f
+postprocess	demo.py	/^def postprocess(img, out):   $/;"	f
+postprocess	demo_haitech.py	/^def postprocess(img, out):   $/;"	f
+postprocess	demo_image.py	/^def postprocess(img, out):   $/;"	f
+preprocess	demo.py	/^def preprocess(src):$/;"	f
+preprocess	demo_haitech.py	/^def preprocess(src):$/;"	f
+preprocess	demo_image.py	/^def preprocess(src):$/;"	f
+print_net_parameters	count_param.py	/^def print_net_parameters (deploy_file):$/;"	f
+real	kcftracker.py	/^def real(img):$/;"	f
+rearrange	kcftracker.py	/^def rearrange(img):$/;"	f
+relu	gen.py	/^    def relu(self, name):$/;"	f
+required	gen.py	/^      required=True,$/;"	v
+reshape	gen.py	/^    def reshape(self, name, output):$/;"	f
+right_view	demo_haitech.py	/^    right_view = cv2.resize(right_view, (img_width, img_height)) $/;"	v
+right_view	demo_haitech.py	/^    right_view = frame[int(ori_height \/ 2 + 5) : int(ori_height), 5 : int(ori_width \/ 2 - 12)]$/;"	v
+right_view	video_to_frame.py	/^        right_view = cv2.resize(right_view, (img_width, img_height)) $/;"	v
+right_view	video_to_frame.py	/^    right_view = frame[int(ori_height \/ 2 + 5) : int(ori_height), int(ori_width \/ 2 + 12) : int(ori_width) - 5]$/;"	v
+save_model	merge_bn.py	/^save_model = 'MobileNetSSD_8_classes_haitech_deploy.caffemodel'$/;"	v
+src_frame	demo.py	/^    src_frame = cv2.resize(frame, (718, 479))$/;"	v
+ssd_loss	gen.py	/^    def ssd_loss(self):$/;"	f
+ssd_predict	gen.py	/^    def ssd_predict(self):$/;"	f
+ssd_test	gen.py	/^    def ssd_test(self):$/;"	f
+subPixelPeak	kcftracker.py	/^	def subPixelPeak(self, left, center, right):$/;"	m	class:KCFTracker
+subwindow	kcftracker.py	/^def subwindow(img, window, borderType=cv2.BORDER_CONSTANT):$/;"	f
+test_dir	demo.py	/^test_dir = "images"$/;"	v
+test_dir	demo_image.py	/^test_dir = "images"$/;"	v
+thickness	demo.py	/^thickness = 3$/;"	v
+thickness	demo_haitech.py	/^thickness = 2$/;"	v
+thickness	demo_image.py	/^thickness = 3$/;"	v
+tic	demo.py	/^    def tic(self):$/;"	m	class:Timer
+tic	demo_haitech.py	/^    def tic(self):$/;"	m	class:Timer
+tic	demo_image.py	/^    def tic(self):$/;"	m	class:Timer
+timer	demo.py	/^    timer = Timer()$/;"	v
+timer	demo_haitech.py	/^    timer = Timer()$/;"	v
+timer	demo_image.py	/^    timer = Timer()$/;"	v
+timer	tracker.py	/^        timer = cv2.getTickCount()$/;"	v
+toc	demo.py	/^    def toc(self, average=True):$/;"	m	class:Timer
+toc	demo_haitech.py	/^    def toc(self, average=True):$/;"	m	class:Timer
+toc	demo_image.py	/^    def toc(self, average=True):$/;"	m	class:Timer
+tracker	tracker.py	/^        tracker = cv2.TrackerBoosting_create()$/;"	v
+tracker	tracker.py	/^        tracker = cv2.TrackerCSRT_create()$/;"	v
+tracker	tracker.py	/^        tracker = cv2.TrackerGOTURN_create()$/;"	v
+tracker	tracker.py	/^        tracker = cv2.TrackerKCF_create()$/;"	v
+tracker	tracker.py	/^        tracker = cv2.TrackerMIL_create()$/;"	v
+tracker	tracker.py	/^        tracker = cv2.TrackerMOSSE_create()$/;"	v
+tracker	tracker.py	/^        tracker = cv2.TrackerMedianFlow_create()$/;"	v
+tracker	tracker.py	/^        tracker = cv2.TrackerTLD_create()$/;"	v
+tracker_type	tracker.py	/^    tracker_type = tracker_types[2]$/;"	v
+tracker_types	tracker.py	/^    tracker_types = ['BOOSTING', 'MIL','KCF', 'TLD', 'MEDIANFLOW', 'GOTURN', 'MOSSE', 'CSRT']$/;"	v
+trackers	demo_haitech.py	/^trackers = []$/;"	v
+train	kcftracker.py	/^	def train(self, x, train_interp_factor):$/;"	m	class:KCFTracker
+train_model	merge_bn.py	/^train_model = 'snapshot\/mobilenet_iter_3000.caffemodel'  #should be your snapshot caffemodel$/;"	v
+train_proto	merge_bn.py	/^train_proto = 'example\/8_class_haitech_prototxt\/MobileNetSSD_train.prototxt'  $/;"	v
+type	gen.py	/^      type=float,$/;"	v
+type	gen.py	/^      type=int,$/;"	v
+type	gen.py	/^      type=str,$/;"	v
+update	kcftracker.py	/^	def update(self, image):$/;"	m	class:KCFTracker
+video	tracker.py	/^    video = cv2.VideoCapture("\/home\/ubuntu\/Videos\/haitech\/test\/night\/test1.avi")$/;"	v
+write_path	video_to_frame.py	/^write_path = '\/home\/ubuntu\/Videos\/haitech\/test\/day_test_data\/test6\/'$/;"	v
+x2	kcftracker.py	/^def x2(rect):$/;"	f
+y2	kcftracker.py	/^def y2(rect):$/;"	f
