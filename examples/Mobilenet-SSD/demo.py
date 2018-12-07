@@ -1,6 +1,7 @@
 import numpy as np  
 import sys,os  
 import cv2
+from math import sqrt
 caffe_root = '/home/joy_hsiao/Haitec/caffe/'
 sys.path.insert(0, caffe_root + 'python')  
 import caffe  
@@ -81,30 +82,22 @@ def postprocess(img, out):
 
 #front
 path = '/home/joy_hsiao/Haitec/video/'
-fileName = 'AV1-20181116_172502_right.avi'
+fileName = 'AV1-20181116_171502_back.avi'
 cap = cv2.VideoCapture(path+fileName) 
 #cap = cv2.VideoCapture('/home/joy_hsiao/Video/train33_30fps.mp4') #start:30000
 #cap = cv2.VideoCapture('/home/joy_hsiao/Video/AV1-20181116_162151_right.avi') 
 #cap = cv2.VideoCapture('/home/joy_hsiao/Video/left.mp4') 
-#cap = cv2.VideoCapture('/home/joy_hsiao/Video/right.mp4') 
-#cap = cv2.VideoCapture('/home/ubuntu/Videos/YDXJ0341.mp4')
-#cap = cv2.VideoCapture('/home/ubuntu/Videos/YDXJ0344.mp4')
 #cap = cv2.VideoCapture('/home/ubuntu/Videos/YDXJ0349.mp4')
 #cap = cv2.VideoCapture('/media/ubuntu/Database1/night_view/100GOPRO-20180617/h.264/front/front2.mp4')
 
-
 #back
-#cap = cv2.VideoCapture('/media/ubuntu/Database1/night_view/100GOPRO-20180617/h.264/back/back3.mp4')
 #cap = cv2.VideoCapture('/media/ubuntu/Database1/night_view/100GOPRO-20180617/h.264/back/back2.mp4') #start:40000
 
 #left
 #cap = cv2.VideoCapture('/media/ubuntu/Database1/night_view/100GOPRO-20180617/h.264/left/left9.mp4') #start:0
-#cap = cv2.VideoCapture('/media/ubuntu/Database1/night_view/100GOPRO-20180617/h.264/left/left14.mp4')
-#cap = cv2.VideoCapture('/media/ubuntu/Database1/night_view/100GOPRO-20180617/h.264/left/left15.mp4')
 
 #right
 #cap = cv2.VideoCapture('/media/ubuntu/Database1/night_view/100GOPRO-20180617/h.264/right/right5.mp4')
-#cap = cv2.VideoCapture('/media/ubuntu/Database1/night_view/100GOPRO-20180617/h.264/right/right6.mp4')
 
 cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
 fontScale = 1
@@ -128,7 +121,8 @@ def detect(ori_img):
         ymax = box[i][3]
         #cv2.rectangle(ori_img, (xmin, ymin), (xmax, ymax), (0,255,0))
         p3 = (max(xmin, 15), max(ymin, 15))
-        title = "%s:%.2f" % (CLASSES[int(cls[i])], conf[i])
+        #title = "%s:%.2f" % (CLASSES[int(cls[i])], conf[i])
+        title = "%s" % (CLASSES[int(cls[i])])
         #coordinate = "(%d,%d) " % (xmin, ymin)
         
         color_picker = {
@@ -143,30 +137,56 @@ def detect(ori_img):
 
         color = color_picker[CLASSES[int(cls[i])]]
         
-        cv2.rectangle(ori_img, (xmin, ymin), (xmax, ymax), color, 2)
+        if fileName.find('right') > -1:
+            slashDistance = pow(Width-xmax,2) + pow(Height-ymax,2)
+            slashDistance = sqrt(slashDistance)
+            pre_ymax=ymax
+            ymax=int(478-slashDistance)
+            if ymax<240 and ymax>0: #slash distance adjustment
+                #ymax=ymax+((CloseDis/pow(ymax,2))*1000)*2
+                ymax=(pre_ymax+ymax)/2 
+        if fileName.find('left') > -1:
+            #cv2.circle(ori_img, (xmin, ymax), 5, (255, 0, 255), -1)
+            slashDistance = pow(xmin-Width,2) + pow(Height-ymax,2)
+            slashDistance = sqrt(slashDistance)
+            pre_ymax=ymax
+            ymax=int(478-slashDistance)
+            if ymax<240 and ymax>0: #slash distance adjustment
+                #ymax=ymax+((CloseDis/pow(ymax,2))*1000)*2
+                ymax=(pre_ymax+ymax)/2
+            distance=0
+            if ymax>190:
+                distance = LambdaBack*(1.0/(ymax-Level)-1.0/(CloseDis-Level))+5.5
+            #print pre_ymax, distance, ymax, slashDistance
 
         if ymax > 190:
             if fileName.find('back') > -1:
-                distance = LambdaBack*(1.0/(ymax-Level)-1.0/(270-Level))
-                distanceShow = "%.2f " % (distance+5.5)
+                pre_ymax=ymax
+                distance = LambdaBack*(1.0/(ymax-Level)-1.0/(CloseDis-Level))+5.5
             if fileName.find('right') > -1:
-                distance = LambdaRight*(1.0/(ymax-Level)-1.0/(270-Level))
-                distanceShow = "%.2f " % (distance+27)
+                distance = LambdaRight*(1.0/(ymax-Level)-1.0/(CloseDis-Level))+2.7
+            #print ("2 ", ymax, slashDistance, distance)
             if fileName.find('left') > -1:
-                distance = LambdaLeft*(1.0/(ymax-Level)-1.0/(270-Level))
-                distanceShow = "%.2f " % (distance+27)
+                distance = LambdaLeft*(1.0/(ymax-Level)-1.0/(CloseDis-Level))+3.2
+            if distance < 0.0:
+                distance=0.0
+            distanceShow = "%.2f " % distance
+            cv2.rectangle(ori_img, (xmin, ymin), (xmax, pre_ymax), color, 2)
             cv2.putText(ori_img, distanceShow + title, (xmin, ymin), cv2.FONT_HERSHEY_SIMPLEX, fontScale, color, thickness, cv2.LINE_AA)
     return ori_img
 
 #        Level   5M  10M 15M
 #back    190     270 235 225
-#        Level   0M  8M  13M 18M
-#right   190     330 250 234 228
-#left    190     316 235 216 210
+#        Level   2.7M   8M      13M     18M
+#right   190     330    250     234     228
+#left    190     316    235     216     210
 Level = 190
-LambdaBack = (15-5)/(1.0/(225-Level)-1.0/(270-Level))
-LambdaRight = 18/(1.0/(228-Level)-1.0/(330-Level))
-LambdaLeft = 18/(1.0/(210-Level)-1.0/(316-Level))
+BackClosestDis=270
+RightClosestDis=330
+LeftClosestDis=316
+LambdaBack = (15-5)/(1.0/(225-Level)-1.0/(BackClosestDis-Level))
+LambdaRight = (18-2.7)/(1.0/(228-Level)-1.0/(RightClosestDis-Level))
+LambdaLeft = (18-2.7)/(1.0/(210-Level)-1.0/(LeftClosestDis-Level))
 
 #cap.set(cv2.CAP_PROP_POS_FRAMES, 18000)
 
@@ -183,10 +203,19 @@ while(cap.isOpened()):
 
     if fileName.find('left') > -1:
         roiImg = frame[0:478,150:718]
+        Height = roiImg.shape[0]
+        Width = 0
+        CloseDis=LeftClosestDis
     elif fileName.find('right') > -1:
         roiImg = frame[0:478,0:580]
+        Height = roiImg.shape[0]
+        Width = roiImg.shape[1]
+        CloseDis=RightClosestDis
     else:
         roiImg = frame[0:478,0:718]
+        Height = roiImg.shape[0]
+        Width = roiImg.shape[1]
+        CloseDis=BackClosestDis
 
     #try:
     #    roiImg
@@ -195,10 +224,8 @@ while(cap.isOpened()):
     
     dst_img = detect(roiImg)
     if fileName.find('left') > -1:
-        #print("left");
         frame[0:478,150:718]=roiImg
     elif fileName.find('right') > -1:
-        #print("right");
         frame[0:478,0:580]=roiImg
     else:
         frame[0:478,0:718]=roiImg
