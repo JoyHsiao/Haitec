@@ -82,7 +82,7 @@ def postprocess(img, out):
 
 #front
 path = '/home/joy_hsiao/Haitec/video/'
-fileName = 'AV1-20181116_171502_back.avi'
+fileName = 'AV1-20181116_172502_back.avi'
 cap = cv2.VideoCapture(path+fileName) 
 #cap = cv2.VideoCapture('/home/joy_hsiao/Video/train33_30fps.mp4') #start:30000
 #cap = cv2.VideoCapture('/home/joy_hsiao/Video/AV1-20181116_162151_right.avi') 
@@ -102,8 +102,17 @@ cap = cv2.VideoCapture(path+fileName)
 cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
 fontScale = 1
 thickness = 3
+accelerationFrame=0 # five frames update acceleration
+preDis = -99.99 # count 1's frame Distance
+preSec = -99.99 # count 1's sec Distance
+V = -99.99
 
 def detect(ori_img):
+    global nearDistance
+    global accelerationFrame
+    global preDis
+    global preSec
+    global V
     img = preprocess(ori_img)
     img = img.astype(np.float32)
     img = img.transpose((2, 0, 1))
@@ -119,12 +128,12 @@ def detect(ori_img):
         ymin = box[i][1]
         xmax = box[i][2]
         ymax = box[i][3]
-        #cv2.rectangle(ori_img, (xmin, ymin), (xmax, ymax), (0,255,0))
+        #cv2.rectangle(ori_img, (xmin, ymin), (xmax, ymax), (255,255,255))
         p3 = (max(xmin, 15), max(ymin, 15))
         #title = "%s:%.2f" % (CLASSES[int(cls[i])], conf[i])
         title = "%s" % (CLASSES[int(cls[i])])
         #coordinate = "(%d,%d) " % (xmin, ymin)
-        
+
         color_picker = {
         'person' : (255, 0, 0),
         'car' : (0, 255, 0),
@@ -170,9 +179,41 @@ def detect(ori_img):
                 distance = LambdaLeft*(1.0/(ymax-Level)-1.0/(CloseDis-Level))+3.2
             if distance < 0.0:
                 distance=0.0
-            distanceShow = "%.2f " % distance
-            cv2.rectangle(ori_img, (xmin, ymin), (xmax, pre_ymax), color, 2)
-            cv2.putText(ori_img, distanceShow + title, (xmin, ymin), cv2.FONT_HERSHEY_SIMPLEX, fontScale, color, thickness, cv2.LINE_AA)
+            if(nearDistance > distance):
+                nearDistance = distance
+            if(distance<90):
+                distanceShow = "%.2f " % distance
+
+                if(preDis<-99):
+                    preDis = distance
+                Sec = time.time()
+                S = Sec - preSec
+                V = ((distance-preDis)/1000.0)/(S/60.0/60.0) # m/sec to km/hr
+                #print(preDis, distance, distance-preDis, preSec, Sec, S)
+                preSec = Sec
+                preDis = distance
+                show = "%.2f" % V
+
+                cv2.rectangle(ori_img, (xmin, ymin), (xmax, pre_ymax), color, 2)
+                cv2.putText(ori_img, distanceShow + show, (xmin, ymin), cv2.FONT_HERSHEY_SIMPLEX, fontScale, color, thickness, cv2.LINE_AA)
+            
+
+
+#    if(accelerationFrame==0):
+#        preDis = distance
+#        preSec = time.time()
+#        print("==", accelerationFrame, preDis, distance, distance-preDis)
+#        accelerationFrame+=1
+#    elif(accelerationFrame<5):
+#        print("**", accelerationFrame, preDis, distance, distance-preDis)
+#        accelerationFrame+=1
+#    else:
+#        Sec = time.time()
+#        S = Sec - preSec
+#        V = (distance-preDis)*100/S
+#        print(preSec, Sec, S, V)
+#        print("##",accelerationFrame, preDis, distance, distance-preDis)
+#        accelerationFrame=0
     return ori_img
 
 #        Level   5M  10M 15M
@@ -188,9 +229,10 @@ LambdaBack = (15-5)/(1.0/(225-Level)-1.0/(BackClosestDis-Level))
 LambdaRight = (18-2.7)/(1.0/(228-Level)-1.0/(RightClosestDis-Level))
 LambdaLeft = (18-2.7)/(1.0/(210-Level)-1.0/(LeftClosestDis-Level))
 
-#cap.set(cv2.CAP_PROP_POS_FRAMES, 18000)
+#cap.set(cv2.CAP_PROP_POS_FRAMES, 3000)
 
 out = cv2.VideoWriter('/home/joy_hsiao/Haitec/video/Out/'+fileName, cv2.VideoWriter_fourcc('M','J','P','G'), 30, (718,478))
+#out = cv2.VideoWriter('/home/joy_hsiao/Haitec/video/Out/'+fileName, cv2.VideoWriter_fourcc('M','P','4','V'), 30, (718,478))
 while(cap.isOpened()):
     ret, frame = cap.read()
     #print("size =", (cap.get(cv2.CAP_PROP_FRAME_WIDTH)), (cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
@@ -222,6 +264,7 @@ while(cap.isOpened()):
     #except NameError:
     #    roiImg = frame[0:478,0:718]
     
+    nearDistance=99.00 # closest car distance
     dst_img = detect(roiImg)
     if fileName.find('left') > -1:
         frame[0:478,150:718]=roiImg
@@ -231,7 +274,13 @@ while(cap.isOpened()):
         frame[0:478,0:718]=roiImg
     
     timer.toc()
-    cv2.putText(frame, "FPS : " + str(int(1 / timer.total_time)), (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, (50, 0, 255), 4, cv2.LINE_AA)
+    if(nearDistance<5):
+        cv2.circle(frame, (30, 30), 10, (0, 0, 255), -1)
+    elif(nearDistance<10):
+        cv2.circle(frame, (30, 30), 10, (0, 255, 255), -1)
+    else:
+        cv2.circle(frame, (30, 30), 10, (0, 255, 0), -1)
+    cv2.putText(frame, "FPS : " + str(int(1 / timer.total_time)), (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, (50, 0, 255), 4, cv2.LINE_AA)
     #cv2.line(frame, (580,0), (580, 479), (0,255,0), 1)
     #cv2.line(dst_img, (0,210), (718, 210), (0,255,0), 1)
     cv2.imshow("result", frame)
